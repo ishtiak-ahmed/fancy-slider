@@ -1,6 +1,6 @@
 #sliders {
   height: 400px;
-  width: 60%;
+  width: 70%;
   overflow: hidden;
   margin: 0 auto;
   position: relative;
@@ -36,10 +36,17 @@ img {
   cursor: pointer;
 }
 
-.prev, .next {
+.prev,
+.next {
   background-color: transparent;
   padding: 8px 10px;
   color: #fff;
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+}
+.prev:hover,
+.next:hover {
+  opacity: 1;
 }
 
 .dot {
