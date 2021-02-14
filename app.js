@@ -41,7 +41,6 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  console.log(element)
   element.classList.toggle('added');
 
   let item = sliders.indexOf(img);
@@ -56,7 +55,6 @@ const selectItem = (event, img) => {
 var timer
 // creating slider function
 const createSlider = () => {
-  console.log(sliders)
   const duration = document.getElementById('duration').value || 1000;
 
   // check slider image length
@@ -65,7 +63,7 @@ const createSlider = () => {
     return;
   }
   // get postive time
-  if (duration < 100) {
+  if (duration < 0) {
     alert('please give posistive value..');
     return;
   }
@@ -127,11 +125,7 @@ const changeSlide = (index) => {
 }
 
 searchBtn.addEventListener('click', function () {
-  document.querySelector('.main').style.display = 'none';
-  clearInterval(timer);
-  const search = document.getElementById('search');
-  getImages(search.value)
-  sliders.length = 0;
+  searchImage()
 })
 
 sliderBtn.addEventListener('click', function () {
@@ -139,15 +133,23 @@ sliderBtn.addEventListener('click', function () {
 })
 
 
-document.getElementById('searchForm').addEventListener('submit', searchImage);
-
-function searchImage(e) {
+document.getElementById('searchForm').addEventListener('submit', e => {
   e.preventDefault();
+  searchImage();
+});
+
+
+function searchImage() {
+  document.querySelector('.main').style.display = 'none';
+  clearInterval(timer);
   const query = document.getElementById('search').value;
   console.log('search images for ', query)
   if (query.length > 0) {
     getImages(query);
+  } else {
+    alert('Please enter a keyword for images')
   }
+  sliders.length = 0;
 }
 document.getElementById('sliders').addEventListener('mouseover', () => {
   // alert('mouse is over carousel item')
