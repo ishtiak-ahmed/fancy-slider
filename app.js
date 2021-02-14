@@ -27,14 +27,14 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
-
+  document.querySelector('.spinner-border').classList.toggle('d-none');
 }
 
 const getImages = (query) => {
+  document.querySelector('.spinner-border').classList.toggle('d-none');
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    // .then(data => console.log(data.hits))
     .catch(err => console.log(err))
 }
 
@@ -62,11 +62,13 @@ const createSlider = () => {
     alert('Select at least 2 image.')
     return;
   }
+
   // get postive time
-  if (duration < 0) {
-    alert('please give posistive value..');
+  if (duration <= 500) {
+    alert('please set a value over 500ms to make a nice slider.');
     return;
   }
+
   // crate slider previous next area
   sliderContainer.innerHTML = '';
   const prevNext = document.createElement('div');
@@ -128,22 +130,22 @@ searchBtn.addEventListener('click', function () {
   searchImage()
 })
 
+// Create Slider
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-
+// Enter key search Function
 document.getElementById('searchForm').addEventListener('submit', e => {
   e.preventDefault();
   searchImage();
 });
 
-
+// Image Search Function
 function searchImage() {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const query = document.getElementById('search').value;
-  console.log('search images for ', query)
   if (query.length > 0) {
     getImages(query);
   } else {
@@ -151,11 +153,11 @@ function searchImage() {
   }
   sliders.length = 0;
 }
+
+// Mouse Over and Leave function
 document.getElementById('sliders').addEventListener('mouseover', () => {
-  // alert('mouse is over carousel item')
   isPaused = true;
 })
 document.getElementById('sliders').addEventListener('mouseleave', () => {
-  // alert('mouse is over carousel item')
   isPaused = false;
 })
