@@ -1,0 +1,13 @@
+done ## 1 Solve search function
+
+done ## 2 Solve image selection
+
+done ## 3 Solve timing validation
+
+done ## 4 Enter key search
+
+done ## 5 Select and deselect image
+
+### bonus 1 Improve slider size
+
+### bonus 2 pause slider on mouse over
