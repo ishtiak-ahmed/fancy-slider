@@ -7,6 +7,8 @@ const sliderContainer = document.getElementById('sliders');
 // selected image 
 let sliders = [];
 
+let isPaused = false;
+
 
 // If this key doesn't work
 // Find the name in the url and go to their website
@@ -91,8 +93,10 @@ const createSlider = () => {
   })
   changeSlide(0)
   timer = setInterval(function () {
-    slideIndex++;
-    changeSlide(slideIndex);
+    if (!isPaused) {
+      slideIndex++;
+      changeSlide(slideIndex);
+    }
   }, duration);
 }
 
@@ -145,3 +149,11 @@ function searchImage(e) {
     getImages(query);
   }
 }
+document.getElementById('sliders').addEventListener('mouseover', () => {
+  // alert('mouse is over carousel item')
+  isPaused = true;
+})
+document.getElementById('sliders').addEventListener('mouseleave', () => {
+  // alert('mouse is over carousel item')
+  isPaused = false;
+})
